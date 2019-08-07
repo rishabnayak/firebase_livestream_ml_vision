@@ -1,12 +1,10 @@
-# ML Kit Vision for Firebase with AutoML Vision Edge Support
+# ML Kit Vision for Firebase with AutoML Vision Edge and Camera Live Streaming Support
 
 A Flutter plugin to use the [ML Kit Vision for Firebase API](https://firebase.google.com/docs/ml-kit/).
 
 For Flutter plugins for other Firebase products, see [FlutterFire.md](https://github.com/flutter/plugins/blob/master/FlutterFire.md).
 
 *Note*: This plugin is still under development, and some APIs might not be available yet. [Feedback](https://github.com/flutter/flutter/issues) and [Pull Requests](https://github.com/flutter/plugins/pulls) are most welcome!
-
-Note: AutoML Vision Edge: iOS Only
 
 ## Usage
 
@@ -102,31 +100,31 @@ FirebaseVision.instance.modelManager().setupModel('<foldername(modelname)>', mod
 Get an instance of a `FirebaseVisionDetector`.
 
 ```dart
-final BarcodeDetector barcodeDetector = FirebaseVision.instance.barcodeDetector();
-final ImageLabeler cloudLabeler = FirebaseVision.instance.cloudImageLabeler();
-final FaceDetector faceDetector = FirebaseVision.instance.faceDetector();
-final ImageLabeler labeler = FirebaseVision.instance.imageLabeler();
-final TextRecognizer textRecognizer = FirebaseVision.instance.textRecognizer();
-final VisionEdgeImageLabeler visionEdgeLabeler = FirebaseVision.instance.visionEdgeImageLabeler('<foldername(modelname)>', modelLocation);
+final BarcodeDetector barcodeDetector = FirebaseVision.instance.addBarcodeDetector();
+final ImageLabeler cloudLabeler = FirebaseVision.instance.addCloudImageLabeler();
+final FaceDetector faceDetector = FirebaseVision.instance.addFaceDetector();
+final ImageLabeler labeler = FirebaseVision.instance.addImageLabeler();
+final TextRecognizer textRecognizer = FirebaseVision.instance.addTextRecognizer();
+final VisionEdgeImageLabeler visionEdgeLabeler = FirebaseVision.instance.addVisionEdgeImageLabeler('<foldername(modelname)>', modelLocation);
 ```
 
 You can also configure all detectors, except `TextRecognizer`, with desired options.
 
 ```dart
-final ImageLabeler labeler = FirebaseVision.instance.imageLabler(
+final ImageLabeler labeler = FirebaseVision.instance.addImageLabler(
   ImageLabelerOptions(confidenceThreshold: 0.75),
 );
 ```
 
-### 3. Call `detectInImage()` with `visionImage`.
+### 3. Call `startDetector()` to start detection.
 
 ```dart
-final List<Barcode> barcodes = await barcodeDetector.detectInImage(visionImage);
-final List<ImageLabel> cloudLabels = await cloudLabeler.processImage(visionImage);
-final List<Face> faces = await faceDetector.processImage(visionImage);
-final List<ImageLabel> labels = await labeler.processImage(visionImage);
-final VisionText visionText = await textRecognizer.processImage(visionImage);
-final List<VisionEdgeImageLabel> visionEdgeLabels = await visionEdgeLabeler.processImage(visionImage);
+final Stream<List<Barcode>> barcodes = await barcodeDetector.startDetection();
+final Stream<List<ImageLabel>> cloudLabels = await cloudLabeler.startDetection();
+final Stream<List<Face>> faces = await faceDetector.startDetection();
+final <List<ImageLabel>> labels = await labeler.startDetection();
+final VisionText visionText = await textRecognizer.startDetection();
+final Stream<List<VisionEdgeImageLabel>> visionEdgeLabels = await visionEdgeLabeler.startDetection();
 ```
 
 ### 4. Extract data.
@@ -225,4 +223,4 @@ for (TextBlock block in visionText.blocks) {
 
 ## Getting Started
 
-See the `example` directory for a complete sample app using ML Kit Vision for Firebase.
+See the `example` directory for a complete sample app using ML Kit Vision for Firebase with Camera Streaming.

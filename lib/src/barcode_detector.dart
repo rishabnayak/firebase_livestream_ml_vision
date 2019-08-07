@@ -191,7 +191,7 @@ class BarcodeDetector {
   bool _hasBeenOpened = false;
   bool _isClosed = false;
 
-  /// Detects barcodes in the input image.
+  /// Starts barcode detection.
   Future<void> startDetection() async {
     assert(!_isClosed);
 
