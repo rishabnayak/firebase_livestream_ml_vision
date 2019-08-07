@@ -60,7 +60,7 @@ class RemoteVisionEdgeDetector implements Detector {
                 }
               });
       try {
-        labeler = FirebaseVision.getInstance().getOnDeviceAutoMLImageLabeler(parseOptions(options));
+        labeler = vision.getOnDeviceAutoMLImageLabeler(parseOptions(options));
       } catch (FirebaseMLException e) {
         throw new IllegalArgumentException(e.getLocalizedMessage());
       }

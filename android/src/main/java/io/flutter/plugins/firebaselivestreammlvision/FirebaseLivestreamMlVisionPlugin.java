@@ -482,19 +482,6 @@ public class FirebaseLivestreamMlVisionPlugin implements MethodCallHandler {
       }
     }
 
-    private ByteBuffer YUV_420_888toNV21(Image image) {
-      byte[] nv21;
-      ByteBuffer yBuffer = image.getPlanes()[0].getBuffer();
-      ByteBuffer uBuffer = image.getPlanes()[1].getBuffer();
-      ByteBuffer vBuffer = image.getPlanes()[2].getBuffer();
-
-      int ySize = yBuffer.remaining();
-      int uSize = uBuffer.remaining();
-      int vSize = vBuffer.remaining();
-
-      return ByteBuffer.allocate(ySize + uSize + vSize).put(yBuffer).put(vBuffer).put(uBuffer);
-    }
-
     private int getRotation() {
       if (windowManager == null) {
         windowManager = (WindowManager) activity.getSystemService(Context.WINDOW_SERVICE);
@@ -543,7 +530,6 @@ public class FirebaseLivestreamMlVisionPlugin implements MethodCallHandler {
         return;
       }
       shouldThrottle.set(true);
-      ByteBuffer imageBuffer = YUV_420_888toNV21(image);
       FirebaseVisionImageMetadata metadata =
               new FirebaseVisionImageMetadata.Builder()
                       .setFormat(FirebaseVisionImageMetadata.IMAGE_FORMAT_NV21)
@@ -552,7 +538,7 @@ public class FirebaseLivestreamMlVisionPlugin implements MethodCallHandler {
                       .setRotation(getRotation())
                       .build();
       FirebaseVisionImage firebaseVisionImage =
-              FirebaseVisionImage.fromByteBuffer(imageBuffer, metadata);
+              FirebaseVisionImage.fromMediaImage(image, metadata.getRotation());
 
       currentDetector.handleDetection(
               firebaseVisionImage, eventSink);

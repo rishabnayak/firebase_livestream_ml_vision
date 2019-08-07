@@ -8,7 +8,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:263336422388:android:0ef0dc19d6517eb1",
+        "mobilesdk_app_id": "1:263336422388:android:ba2271457e974b33",
         "android_client_info": {
           "package_name": "com.example.firebase_livestream_ml_vision_example"
         }
@@ -32,10 +32,118 @@
               "client_type": 3
             },
             {
-              "client_id": "263336422388-o3nm3p2i3urits7k5p5rct669gpdg57v.apps.googleusercontent.com",
+              "client_id": "263336422388-9nmq0d0ud8vif1jhglkiqouhjkl0l8em.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.firebase_livestream_ml_vision_example"
+                "bundle_id": "io.flutter.plugins.cameraExample"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263336422388:android:8f1d73a03480bdaa",
+        "android_client_info": {
+          "package_name": "com.example.firebase_mlkit_language_example"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263336422388-5vlaclp30h6qluff7atssm0ckmdb905m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApfJeU1jueT5qmLRTknFWcobz-KdheWwk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "263336422388-5vlaclp30h6qluff7atssm0ckmdb905m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "263336422388-9nmq0d0ud8vif1jhglkiqouhjkl0l8em.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.flutter.plugins.cameraExample"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263336422388:android:0ef0dc19d6517eb1",
+        "android_client_info": {
+          "package_name": "com.example.firebase_mlvision_example"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263336422388-5vlaclp30h6qluff7atssm0ckmdb905m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApfJeU1jueT5qmLRTknFWcobz-KdheWwk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "263336422388-5vlaclp30h6qluff7atssm0ckmdb905m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "263336422388-9nmq0d0ud8vif1jhglkiqouhjkl0l8em.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.flutter.plugins.cameraExample"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263336422388:android:f14292e0be0a0062",
+        "android_client_info": {
+          "package_name": "com.example.mlkitdemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263336422388-5vlaclp30h6qluff7atssm0ckmdb905m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApfJeU1jueT5qmLRTknFWcobz-KdheWwk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "263336422388-5vlaclp30h6qluff7atssm0ckmdb905m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "263336422388-9nmq0d0ud8vif1jhglkiqouhjkl0l8em.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.flutter.plugins.cameraExample"
               }
             }
           ]

@@ -34,7 +34,7 @@ class LocalVisionEdgeDetector implements Detector {
               .build();
       FirebaseModelManager.getInstance().registerLocalModel(localModel);
       try {
-        labeler = FirebaseVision.getInstance().getOnDeviceAutoMLImageLabeler(parseOptions(options));
+        labeler = vision.getOnDeviceAutoMLImageLabeler(parseOptions(options));
       } catch (FirebaseMLException e) {
         throw new IllegalArgumentException(e.getLocalizedMessage());
       }
