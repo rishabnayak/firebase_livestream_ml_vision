@@ -379,19 +379,15 @@ class FirebaseVision extends ValueNotifier<FirebaseCameraValue> {
   }
 
   /// Creates an instance of [TextRecognizer].
-  Future<Stream<List<VisionText>>> addTextRecognizer([TextRecognizer options]) async {
+  Future<Stream<VisionText>> addTextRecognizer([TextRecognizer options]) async {
     textRecognizer = TextRecognizer._(
       modelType: ModelType.onDevice,
       handle: nextHandle++,
   );
   await textRecognizer.startDetection();
   return EventChannel('plugins.flutter.io/firebase_livestream_ml_vision$_textureId').receiveBroadcastStream().map((convert) {
-      dynamic data = convert['data'];
-      final List<VisionText> texts = <VisionText>[];
-      data.forEach((dynamic text) {
-        texts.add(new VisionText._(text));
-      });  
-      return texts;
+      dynamic data = new Map<String,dynamic>.from(convert['data']);
+      return VisionText._(data);
     });
   }
 

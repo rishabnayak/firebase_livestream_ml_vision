@@ -30,7 +30,8 @@
                      [FLTFirebaseLivestreamMlVisionPlugin handleError:error result:result];
                      return;
                    } else if (!visionText) {
-                     result(@{@"text" : @"", @"blocks" : @[]});
+                     result(@{@"eventType" : @"detection",
+                      @"data": @{@"text" : @"", @"blocks" : @[]}});
                      return;
                    }
 
@@ -84,7 +85,7 @@
                    visionTextData[@"blocks"] = allBlockData;
                    result(@{
                       @"eventType" : @"detection",
-                      @"data":visionTextData
+                      @"data": visionTextData
                     });
                  }];
 }
