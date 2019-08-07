@@ -43,8 +43,10 @@
             };
             [labelData addObject:data];
           }
-
-          result(labelData);
+          result(@{
+                    @"eventType" : @"detection",
+                    @"data":labelData
+                });
         }];
 }
 

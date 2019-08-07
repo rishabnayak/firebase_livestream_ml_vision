@@ -13,6 +13,18 @@ PODS:
   - Firebase/MLVisionAutoML (6.1.0):
     - Firebase/CoreOnly
     - FirebaseMLVisionAutoML (~> 0.16.0)
+  - Firebase/MLVisionBarcodeModel (6.1.0):
+    - Firebase/CoreOnly
+    - FirebaseMLVisionBarcodeModel (~> 0.16.0)
+  - Firebase/MLVisionFaceModel (6.1.0):
+    - Firebase/CoreOnly
+    - FirebaseMLVisionFaceModel (~> 0.16.0)
+  - Firebase/MLVisionLabelModel (6.1.0):
+    - Firebase/CoreOnly
+    - FirebaseMLVisionLabelModel (~> 0.16.0)
+  - Firebase/MLVisionTextModel (6.1.0):
+    - Firebase/CoreOnly
+    - FirebaseMLVisionTextModel (~> 0.16.0)
   - firebase_core (0.0.1):
     - Firebase/Core
     - Flutter
@@ -54,6 +66,14 @@ PODS:
     - FirebaseMLCommon (~> 0.16)
     - FirebaseMLVision (~> 0.16)
     - TensorFlowLite (= 1.13.1)
+  - FirebaseMLVisionBarcodeModel (0.16.0):
+    - GoogleMobileVision/BarcodeDetector (~> 1.4)
+  - FirebaseMLVisionFaceModel (0.16.0):
+    - GoogleMobileVision/FaceDetector (~> 1.4)
+  - FirebaseMLVisionLabelModel (0.16.0):
+    - GoogleMobileVision/LabelDetector (~> 1.4)
+  - FirebaseMLVisionTextModel (0.16.0):
+    - GoogleMobileVision/TextDetector (~> 1.4)
   - Flutter (1.0.0)
   - GoogleAPIClientForREST/Core (1.3.9):
     - GTMSessionFetcher (>= 1.1.7)
@@ -66,11 +86,19 @@ PODS:
     - GoogleUtilities/Network (~> 6.0)
     - "GoogleUtilities/NSData+zlib (~> 6.0)"
     - nanopb (~> 0.3)
+  - GoogleMobileVision/BarcodeDetector (1.6.0):
+    - GoogleMobileVision/Detector (~> 1.6)
   - GoogleMobileVision/Detector (1.6.0):
     - GoogleToolboxForMac/Logger (~> 2.1)
     - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
     - GTMSessionFetcher/Core (~> 1.1)
     - Protobuf (~> 3.1)
+  - GoogleMobileVision/FaceDetector (1.6.0):
+    - GoogleMobileVision/Detector (~> 1.6)
+  - GoogleMobileVision/LabelDetector (1.6.0):
+    - GoogleMobileVision/Detector (~> 1.6)
+  - GoogleMobileVision/TextDetector (1.6.0):
+    - GoogleMobileVision/Detector (~> 1.6)
   - GoogleToolboxForMac/Defines (2.2.1)
   - GoogleToolboxForMac/Logger (2.2.1):
     - GoogleToolboxForMac/Defines (= 2.2.1)
@@ -108,9 +136,13 @@ PODS:
   - TensorFlowLite (1.13.1)
 
 DEPENDENCIES:
+  - Firebase/MLVisionBarcodeModel
+  - Firebase/MLVisionFaceModel
+  - Firebase/MLVisionLabelModel
+  - Firebase/MLVisionTextModel
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_livestream_ml_vision (from `.symlinks/plugins/firebase_livestream_ml_vision/ios`)
-  - Flutter (from `.symlinks/flutter/ios-release`)
+  - Flutter (from `.symlinks/flutter/ios`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -121,6 +153,10 @@ SPEC REPOS:
     - FirebaseMLCommon
     - FirebaseMLVision
     - FirebaseMLVisionAutoML
+    - FirebaseMLVisionBarcodeModel
+    - FirebaseMLVisionFaceModel
+    - FirebaseMLVisionLabelModel
+    - FirebaseMLVisionTextModel
     - GoogleAPIClientForREST
     - GoogleAppMeasurement
     - GoogleMobileVision
@@ -137,7 +173,7 @@ EXTERNAL SOURCES:
   firebase_livestream_ml_vision:
     :path: ".symlinks/plugins/firebase_livestream_ml_vision/ios"
   Flutter:
-    :path: ".symlinks/flutter/ios-release"
+    :path: ".symlinks/flutter/ios"
 
 SPEC CHECKSUMS:
   Firebase: 8d77bb33624ae9b62d745d82ec023de5f70f7e4f
@@ -149,6 +185,10 @@ SPEC CHECKSUMS:
   FirebaseMLCommon: d430756ba2a16bac8fefc81ea416e7f822f052fd
   FirebaseMLVision: 35d0a720334b141d70a55e7e817c1cac23f32285
   FirebaseMLVisionAutoML: ce20b5b0e169cafa07f5bf61048a86aa7df6232c
+  FirebaseMLVisionBarcodeModel: 2abf9867e2c9914726c4d0a6936aaf8b75eb7d46
+  FirebaseMLVisionFaceModel: 897589c0a1d967739cdbb495cf4ca296f8750f75
+  FirebaseMLVisionLabelModel: e270ea50a47b9bd5f332c3dffa22eb896ee422cf
+  FirebaseMLVisionTextModel: f5ca6d55bee8f00e08afca69d211fdc4efee1fef
   Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
   GoogleAPIClientForREST: 44c7b678cbab11d26a47eab7309d6179b1a61f0c
   GoogleAppMeasurement: 51d8d9ea48f0ca44484d29cfbdef976fbd4fc336
@@ -160,6 +200,6 @@ SPEC CHECKSUMS:
   Protobuf: 3f617b9a6e73605565086864c9bc26b2bf2dd5a3
   TensorFlowLite: 8b9dc4eb32eac0f8cb660c66bca7604da56dcc5a
 
-PODFILE CHECKSUM: 7fb83752f59ead6285236625b82473f90b1cb932
+PODFILE CHECKSUM: e4a1bb7693a61d3f10a52c40d113b53fcbf627b8
 
 COCOAPODS: 1.7.1

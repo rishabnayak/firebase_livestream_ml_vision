@@ -101,8 +101,10 @@
 
             [faceData addObject:data];
           }
-
-          result(faceData);
+          result(@{
+                    @"eventType" : @"detection",
+                    @"data":faceData
+                });
         }];
 }
 

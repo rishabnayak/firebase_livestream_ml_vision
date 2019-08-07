@@ -28,7 +28,7 @@ class _MyHomePageState extends State<_MyHomePage> {
       if (!mounted) {
         return;
       }
-      _vision.addBarcodeDetector().then((onValue){
+      _vision.addImageLabeler().then((onValue){
         onValue.listen((onData) => print(onData));
       });
       setState(() {});

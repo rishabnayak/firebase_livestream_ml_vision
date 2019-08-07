@@ -82,7 +82,10 @@
                    }
 
                    visionTextData[@"blocks"] = allBlockData;
-                   result(visionTextData);
+                   result(@{
+                      @"eventType" : @"detection",
+                      @"data":visionTextData
+                    });
                  }];
 }
 
