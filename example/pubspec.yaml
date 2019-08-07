@@ -12,13 +12,16 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
+  firebase_livestream_ml_vision:
+    path: ../
+  firebase_core: ^0.4.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  firebase_livestream_ml_vision:
-    path: ../
+  flutter_driver:
+    sdk: flutter
+  test: any
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -30,6 +33,13 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - assets/test_face.jpg
+    - assets/test_barcode.jpg
+    - assets/test_text.png
+    - assets/potholes/dict.txt
+    - assets/potholes/manifest.json
+    - assets/potholes/model.tflite
 
   # To add assets to your application, add an assets section, like this:
   # assets:

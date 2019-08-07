@@ -4,18 +4,22 @@
 Pod::Spec.new do |s|
   s.name             = 'firebase_livestream_ml_vision'
   s.version          = '0.0.1'
-  s.summary          = 'A new flutter plugin project.'
+  s.summary          = 'Flutter plugin for Firebase MLVision with Live Camera'
   s.description      = <<-DESC
-A new flutter plugin project.
+Flutter plugin for Firebase MLVision with Live Camera
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://github.com/rishab2113/firebase_livestream_ml_vision/tree/master'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'Rishab Nayak' => 'rishab@bu.edu' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-
-  s.ios.deployment_target = '8.0'
+  s.dependency 'Firebase/Core'
+  s.dependency 'Firebase/MLCommon'
+  s.dependency 'Firebase/MLVision'
+  s.dependency 'Firebase/MLVisionAutoML'
+  s.ios.deployment_target = '9.0'
+  s.static_framework = true
 end
 

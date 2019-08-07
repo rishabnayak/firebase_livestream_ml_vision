@@ -1,0 +1,165 @@
+PODS:
+  - Firebase/Core (6.1.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (= 6.0.1)
+  - Firebase/CoreOnly (6.1.0):
+    - FirebaseCore (= 6.0.1)
+  - Firebase/MLCommon (6.1.0):
+    - Firebase/CoreOnly
+    - FirebaseMLCommon (~> 0.16.0)
+  - Firebase/MLVision (6.1.0):
+    - Firebase/CoreOnly
+    - FirebaseMLVision (~> 0.16.0)
+  - Firebase/MLVisionAutoML (6.1.0):
+    - Firebase/CoreOnly
+    - FirebaseMLVisionAutoML (~> 0.16.0)
+  - firebase_core (0.0.1):
+    - Firebase/Core
+    - Flutter
+  - firebase_livestream_ml_vision (0.0.1):
+    - Firebase/Core
+    - Firebase/MLCommon
+    - Firebase/MLVision
+    - Firebase/MLVisionAutoML
+    - Flutter
+  - FirebaseAnalytics (6.0.1):
+    - FirebaseCore (~> 6.0)
+    - FirebaseInstanceID (~> 4.1)
+    - GoogleAppMeasurement (= 6.0.1)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
+    - nanopb (~> 0.3)
+  - FirebaseCore (6.0.1):
+    - GoogleUtilities/Environment (~> 6.0)
+    - GoogleUtilities/Logger (~> 6.0)
+  - FirebaseInstanceID (4.1.0):
+    - FirebaseCore (~> 6.0)
+    - GoogleUtilities/Environment (~> 6.0)
+    - GoogleUtilities/UserDefaults (~> 6.0)
+  - FirebaseMLCommon (0.16.0):
+    - FirebaseCore (~> 6.0)
+    - FirebaseInstanceID (~> 4.0)
+    - GoogleUtilities/UserDefaults (~> 6.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - FirebaseMLVision (0.16.0):
+    - FirebaseCore (~> 6.0)
+    - FirebaseMLCommon (~> 0.16)
+    - GoogleAPIClientForREST/Core (~> 1.3)
+    - GoogleAPIClientForREST/Vision (~> 1.3)
+    - GoogleMobileVision/Detector (~> 1.4)
+  - FirebaseMLVisionAutoML (0.16.0):
+    - FirebaseCore (~> 6.0)
+    - FirebaseMLCommon (~> 0.16)
+    - FirebaseMLVision (~> 0.16)
+    - TensorFlowLite (= 1.13.1)
+  - Flutter (1.0.0)
+  - GoogleAPIClientForREST/Core (1.3.9):
+    - GTMSessionFetcher (>= 1.1.7)
+  - GoogleAPIClientForREST/Vision (1.3.9):
+    - GoogleAPIClientForREST/Core
+    - GTMSessionFetcher (>= 1.1.7)
+  - GoogleAppMeasurement (6.0.1):
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
+    - nanopb (~> 0.3)
+  - GoogleMobileVision/Detector (1.6.0):
+    - GoogleToolboxForMac/Logger (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - GTMSessionFetcher/Core (~> 1.1)
+    - Protobuf (~> 3.1)
+  - GoogleToolboxForMac/Defines (2.2.1)
+  - GoogleToolboxForMac/Logger (2.2.1):
+    - GoogleToolboxForMac/Defines (= 2.2.1)
+  - "GoogleToolboxForMac/NSData+zlib (2.2.1)":
+    - GoogleToolboxForMac/Defines (= 2.2.1)
+  - GoogleUtilities/AppDelegateSwizzler (6.2.0):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (6.2.0)
+  - GoogleUtilities/Logger (6.2.0):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (6.2.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (6.2.0):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (6.2.0)"
+  - GoogleUtilities/Reachability (6.2.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (6.2.0):
+    - GoogleUtilities/Logger
+  - GTMSessionFetcher (1.2.2):
+    - GTMSessionFetcher/Full (= 1.2.2)
+  - GTMSessionFetcher/Core (1.2.2)
+  - GTMSessionFetcher/Full (1.2.2):
+    - GTMSessionFetcher/Core (= 1.2.2)
+  - nanopb (0.3.901):
+    - nanopb/decode (= 0.3.901)
+    - nanopb/encode (= 0.3.901)
+  - nanopb/decode (0.3.901)
+  - nanopb/encode (0.3.901)
+  - Protobuf (3.8.0)
+  - TensorFlowLite (1.13.1)
+
+DEPENDENCIES:
+  - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
+  - firebase_livestream_ml_vision (from `.symlinks/plugins/firebase_livestream_ml_vision/ios`)
+  - Flutter (from `.symlinks/flutter/ios-release`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseInstanceID
+    - FirebaseMLCommon
+    - FirebaseMLVision
+    - FirebaseMLVisionAutoML
+    - GoogleAPIClientForREST
+    - GoogleAppMeasurement
+    - GoogleMobileVision
+    - GoogleToolboxForMac
+    - GoogleUtilities
+    - GTMSessionFetcher
+    - nanopb
+    - Protobuf
+    - TensorFlowLite
+
+EXTERNAL SOURCES:
+  firebase_core:
+    :path: ".symlinks/plugins/firebase_core/ios"
+  firebase_livestream_ml_vision:
+    :path: ".symlinks/plugins/firebase_livestream_ml_vision/ios"
+  Flutter:
+    :path: ".symlinks/flutter/ios-release"
+
+SPEC CHECKSUMS:
+  Firebase: 8d77bb33624ae9b62d745d82ec023de5f70f7e4f
+  firebase_core: b3b02d0b5e9d01aab5e50ba7cbcf84c73cb6883c
+  firebase_livestream_ml_vision: 6bbfb4ae03c2eda4617f3809c0c93c70c230fcd2
+  FirebaseAnalytics: 629301c2b9925f3537d4093a17a72751ae5b7084
+  FirebaseCore: 66bdef3b310a026880e2a5bc8aa586ab62ce4543
+  FirebaseInstanceID: 27bed93a59b6685f5c3e0c028a878a764fd75c33
+  FirebaseMLCommon: d430756ba2a16bac8fefc81ea416e7f822f052fd
+  FirebaseMLVision: 35d0a720334b141d70a55e7e817c1cac23f32285
+  FirebaseMLVisionAutoML: ce20b5b0e169cafa07f5bf61048a86aa7df6232c
+  Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
+  GoogleAPIClientForREST: 44c7b678cbab11d26a47eab7309d6179b1a61f0c
+  GoogleAppMeasurement: 51d8d9ea48f0ca44484d29cfbdef976fbd4fc336
+  GoogleMobileVision: 31cfb4319fd0c03d80105680abd9eae9da5e3b47
+  GoogleToolboxForMac: b3553629623a3b1bff17f555e736cd5a6d95ad55
+  GoogleUtilities: 996e0db07153674fd1b54b220fda3a3dc3547cba
+  GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
+  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  Protobuf: 3f617b9a6e73605565086864c9bc26b2bf2dd5a3
+  TensorFlowLite: 8b9dc4eb32eac0f8cb660c66bca7604da56dcc5a
+
+PODFILE CHECKSUM: 7fb83752f59ead6285236625b82473f90b1cb932
+
+COCOAPODS: 1.7.1

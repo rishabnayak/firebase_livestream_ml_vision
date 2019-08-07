@@ -1,55 +1,76 @@
-import 'package:flutter/material.dart';
-import 'dart:async';
+// Copyright 2018 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 
-import 'package:flutter/services.dart';
 import 'package:firebase_livestream_ml_vision/firebase_livestream_ml_vision.dart';
+import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(MaterialApp(home: _MyHomePage()));
 
-class MyApp extends StatefulWidget {
+class _MyHomePage extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+class _MyHomePageState extends State<_MyHomePage> {
+  FirebaseVision _vision;
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
+    _initializeCamera();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await FirebaseLivestreamMlVision.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
+  void _initializeCamera() async {
+    List<FirebaseCameraDescription> cameras = await camerasAvailable();
+    _vision = FirebaseVision(cameras[0], ResolutionSetting.high);
+    _vision.initialize().then((_) {
+      if (!mounted) {
+        return;
+      }
+      _vision.addBarcodeDetector().then((onValue){
+        onValue.listen((onData) => print(onData));
+      });
+      setState(() {});
     });
+  }
+
+  void _removeDetector() {
+    _vision.removeBarcodeDetector();
+  }
+
+  Widget _buildImage() {
+    return Container(
+      constraints: const BoxConstraints.expand(),
+      child: _vision == null
+          ? const Center(
+              child: Text(
+                'Initializing Camera...',
+                style: TextStyle(
+                  color: Colors.green,
+                  fontSize: 30.0,
+                ),
+              ),
+            )
+          : Stack(
+              fit: StackFit.expand,
+              children: <Widget>[
+                FirebaseCameraPreview(_vision),
+              ],
+            ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('ML Vision Example'),
+      ),
+      body: _buildImage(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _removeDetector,
+        child: const Icon(Icons.fingerprint),
       ),
     );
   }

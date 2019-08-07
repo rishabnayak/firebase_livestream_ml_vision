@@ -14,8 +14,5 @@ void main() {
   tearDown(() {
     channel.setMockMethodCallHandler(null);
   });
-
-  test('getPlatformVersion', () async {
-    expect(await FirebaseLivestreamMlVision.platformVersion, '42');
-  });
+  
 }
