@@ -4,17 +4,9 @@ part of firebase_livestream_ml_vision;
 ///
 ///
 /// A image labeler is created via
-/// `visionEdgeImageLabeler(String dataset, [VisionEdgeImageLabelerOptions options])` in [FirebaseVision]:
+/// `addVisionEdgeImageLabeler(String dataset, [VisionEdgeImageLabelerOptions options])` in [FirebaseVision]:
 ///
-/// ```dart
-/// final FirebaseVisionImage image =
-///     FirebaseVisionImage.fromFilePath('path/to/file');
-///
-/// final VisionEdgeImageLabeler imageLabeler =
-///     FirebaseVision.instance.visionEdgeImageLabeler("dataset", options);
-///
-/// final List<VisionEdgeImageLabel> labels = await imageLabeler.processImage(image);
-/// ```
+
 
 class VisionEdgeImageLabeler {
   VisionEdgeImageLabeler._({
