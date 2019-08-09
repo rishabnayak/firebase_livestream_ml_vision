@@ -75,37 +75,108 @@ pod 'Firebase/MLVisionFaceModel'
 pod 'Firebase/MLVisionLabelModel'
 pod 'Firebase/MLVisionTextModel'
 ```
+Add one row in `ios/Runner/Info.plist`:
+The key `Privacy - Camera Usage Description` and a usage description.
+In text format: 
+```
+<key>NSCameraUsageDescription</key>
+<string>Can I use the camera please?</string>
+```
 
 ## Using an ML Vision Detector
 
-### 1. Create a `FirebaseVisionImage`.
-
-Create a `FirebaseVisionImage` object from your image. To create a `FirebaseVisionImage` from an image `File` object:
+### 1. Create a Camera View.
+#### Example.
 
 ```dart
-final File imageFile = getImageFile();
-final FirebaseVisionImage visionImage = FirebaseVisionImage.fromFile(imageFile);
+
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:camera/camera.dart';
+
+List<CameraDescription> cameras;
+
+Future<void> main() async {
+  cameras = await availableCameras();
+  runApp(CameraApp());
+}
+
+class CameraApp extends StatefulWidget {
+  @override
+  _CameraAppState createState() => _CameraAppState();
+}
+
+class _CameraAppState extends State<CameraApp> {
+  CameraController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = CameraController(cameras[0], ResolutionPreset.medium);
+    controller.initialize().then((_) {
+      if (!mounted) {
+        return;
+      }
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!controller.value.isInitialized) {
+      return Container();
+    }
+    return AspectRatio(
+        aspectRatio:
+        controller.value.aspectRatio,
+        child: CameraPreview(controller));
+  }
+}
+
+```
+If you want to learn more about camera views, check it out [here](https://github.com/flutter/plugins/tree/master/packages/camera/example).
+
+### Special Instructions for using VisionEdgeImageLabeler.
+
+Get an object of `ModelManager`, and setup the local or remote model(optional, results in faster first-use)
+```dart
+FirebaseVision.modelManager().setupModel('<foldername(modelname)>', modelLocation);
 ```
 
-### Special Instructions for VisionEdgeImageLabeler.
+### 2. Using detectors in your app.
 
-Get an instance of `ModelManager`, and setup the local or remote model(optional, results in faster first-use)
+#### Initialize the camera and provide a *_vision* object with a camera setting and resolution.
 ```dart
-FirebaseVision.instance.modelManager().setupModel('<foldername(modelname)>', modelLocation);
+List<FirebaseCameraDescription> cameras = await camerasAvailable();
+    _vision = FirebaseVision(cameras[0], ResolutionSetting.high);
+    _vision.initialize().then((_) {
+      if (!mounted) {
+        return;
+      }
+      setState(() {});
+    });
+    
 ```
-
-
-### 2. Create an instance of a detector.
-
-Get an instance of a `FirebaseVisionDetector`.
-
+#### Calling a Labeler/Detector:
 ```dart
-final BarcodeDetector barcodeDetector = FirebaseVision.instance.addBarcodeDetector();
-final ImageLabeler cloudLabeler = FirebaseVision.instance.addCloudImageLabeler();
-final FaceDetector faceDetector = FirebaseVision.instance.addFaceDetector();
-final ImageLabeler labeler = FirebaseVision.instance.addImageLabeler();
-final TextRecognizer textRecognizer = FirebaseVision.instance.addTextRecognizer();
-final VisionEdgeImageLabeler visionEdgeLabeler = FirebaseVision.instance.addVisionEdgeImageLabeler('<foldername(modelname)>', modelLocation);
+_vision.addImageLabeler().then((onValue){
+        onValue.listen((onData) => //do something with data (eg: print(onData));
+      });
+```
+```dart
+_vision.addBarcodeDetector().then((onValue){
+          onValue.listen((onData){
+            setState(() {
+              _scanResults = onData;
+            });
+          });
+        });
 ```
 
 You can also configure all detectors, except `TextRecognizer`, with desired options.
@@ -116,18 +187,7 @@ final ImageLabeler labeler = FirebaseVision.instance.addImageLabler(
 );
 ```
 
-### 3. Call `startDetector()` to start detection.
-
-```dart
-final Stream<List<Barcode>> barcodes = await barcodeDetector.startDetection();
-final Stream<List<ImageLabel>> cloudLabels = await cloudLabeler.startDetection();
-final Stream<List<Face>> faces = await faceDetector.startDetection();
-final <List<ImageLabel>> labels = await labeler.startDetection();
-final VisionText visionText = await textRecognizer.startDetection();
-final Stream<List<VisionEdgeImageLabel>> visionEdgeLabels = await visionEdgeLabeler.startDetection();
-```
-
-### 4. Extract data.
+### 3. Extract data.
 
 a. Extract barcodes.
 
