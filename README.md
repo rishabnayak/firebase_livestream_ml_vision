@@ -142,14 +142,14 @@ class _CameraAppState extends State<CameraApp> {
 ```
 If you want to learn more about camera views, check it out [here](https://github.com/flutter/plugins/tree/master/packages/camera/example).
 
+### 2. Using detectors in your app.
+
 ### Special Instructions for using VisionEdgeImageLabeler.
 
 Get an object of `ModelManager`, and setup the local or remote model(optional, results in faster first-use)
 ```dart
 FirebaseVision.modelManager().setupModel('<foldername(modelname)>', modelLocation);
 ```
-
-### 2. Using detectors in your app.
 
 #### Initialize the camera and provide a *_vision* object with a camera setting and resolution.
 ```dart
