@@ -45,16 +45,9 @@ enum FaceContourType {
 /// Detector for detecting faces in an input image.
 ///
 /// A face detector is created via
-/// `faceDetector([FaceDetectorOptions options])` in [FirebaseVision]:
+/// `addFaceDetector([FaceDetectorOptions options])` in [FirebaseVision]:
 ///
-/// ```dart
-/// final FirebaseVisionImage image =
-///     FirebaseVisionImage.fromFilePath('path/to/file');
-///
-/// final FaceDetector faceDetector = FirebaseVision.instance.faceDetector();
-///
-/// final List<Faces> faces = await faceDetector.processImage(image);
-/// ```
+
 class FaceDetector {
   FaceDetector._(this.options, this._handle) : assert(options != null);
 
@@ -64,7 +57,7 @@ class FaceDetector {
   bool _hasBeenOpened = false;
   bool _isClosed = false;
 
-  /// Detects faces in the input image.
+  /// Sets up and starts Face Detection.
   Future<void> startDetection() async {
     assert(!_isClosed);
 
