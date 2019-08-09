@@ -28,6 +28,12 @@ Create a `assets` folder and place the previous folder within it. In `pubspec.ya
 
 ### Android
 
+Change the minimum Android sdk version to 21 (or higher) in your `android/app/build.gradle` file.
+
+```
+minSdkVersion 21
+```
+
 If you're using local AutoML VisionEdge Models, include this in your app-level build.gradle file.
 
 ```
@@ -76,11 +82,15 @@ pod 'Firebase/MLVisionLabelModel'
 pod 'Firebase/MLVisionTextModel'
 ```
 Add one row in `ios/Runner/Info.plist`:
+
 The key `Privacy - Camera Usage Description` and a usage description.
+
 In text format: 
+
 ```
 <key>NSCameraUsageDescription</key>
 <string>Can I use the camera please?</string>
+
 ```
 
 ## Using an ML Vision Detector
@@ -90,57 +100,68 @@ In text format:
 
 ```dart
 
-import 'dart:async';
+import 'package:firebase_livestream_ml_vision/firebase_livestream_ml_vision.dart';
 import 'package:flutter/material.dart';
-import 'package:camera/camera.dart';
+import 'detector_painters.dart';
 
-List<CameraDescription> cameras;
+void main() => runApp(MaterialApp(home: _MyHomePage()));
 
-Future<void> main() async {
-  cameras = await availableCameras();
-  runApp(CameraApp());
-}
-
-class CameraApp extends StatefulWidget {
+class _MyHomePage extends StatefulWidget {
   @override
-  _CameraAppState createState() => _CameraAppState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _CameraAppState extends State<CameraApp> {
-  CameraController controller;
+class _MyHomePageState extends State<_MyHomePage> {
+  FirebaseVision _vision;
+  dynamic _scanResults;
 
   @override
   void initState() {
     super.initState();
-    controller = CameraController(cameras[0], ResolutionPreset.medium);
-    controller.initialize().then((_) {
+    _initializeCamera();
+  }
+
+  void _initializeCamera() async {
+    List<FirebaseCameraDescription> cameras = await camerasAvailable();
+    _vision = FirebaseVision(cameras[0], ResolutionSetting.high);
+    _vision.initialize().then((_) {
       if (!mounted) {
         return;
       }
       setState(() {});
     });
   }
-
-  @override
-  void dispose() {
-    controller?.dispose();
-    super.dispose();
+Widget _buildImage() {
+    return Container(
+      constraints: const BoxConstraints.expand(),
+      child: _vision == null
+          Stack(
+              fit: StackFit.expand,
+              children: <Widget>[
+                FirebaseCameraPreview(_vision),
+                _buildResults(),
+              ],
+            ),
+    );
   }
-
-  @override
+  
   Widget build(BuildContext context) {
-    if (!controller.value.isInitialized) {
-      return Container();
-    }
-    return AspectRatio(
-        aspectRatio:
-        controller.value.aspectRatio,
-        child: CameraPreview(controller));
-  }
+    return Scaffold(
+    body: _buildImage(),
+   );
 }
 
+ void dispose() {
+    _vision.dispose().then((_) {
+  // close all detectors
+    });
+
+    super.dispose();
+  }
+  }
+
 ```
-If you want to learn more about camera views, check it out [here](https://github.com/flutter/plugins/tree/master/packages/camera/example).
+See the example app to learn more on incorporating detectors in the camera app, check it out [here](https://github.com/rishab2113/firebase_livestream_ml_vision/blob/master/example/lib/main.dart).
 
 ### 2. Using detectors in your app.
 
@@ -168,7 +189,8 @@ a. Labeler
 
 ```dart
 _vision.addImageLabeler().then((onValue){
-        onValue.listen((onData) => //do something with data (eg: print(onData));
+        onValue.listen((onData) => //do something with data (eg: print(onData)
+        );
       });
 ```
 b. Detector
