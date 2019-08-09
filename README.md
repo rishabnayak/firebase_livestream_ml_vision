@@ -164,11 +164,15 @@ List<FirebaseCameraDescription> cameras = await camerasAvailable();
     
 ```
 #### Calling a Labeler/Detector:
+a. Labeler
+
 ```dart
 _vision.addImageLabeler().then((onValue){
         onValue.listen((onData) => //do something with data (eg: print(onData));
       });
 ```
+b. Detector
+
 ```dart
 _vision.addBarcodeDetector().then((onValue){
           onValue.listen((onData){
