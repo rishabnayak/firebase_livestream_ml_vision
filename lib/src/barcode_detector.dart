@@ -171,17 +171,9 @@ class BarcodeFormat {
 /// Detector for performing barcode scanning on an input image.
 ///
 /// A barcode detector is created via
-/// `barcodeDetector([BarcodeDetectorOptions options])` in [FirebaseVision]:
+/// `addBarcodeDetector([BarcodeDetectorOptions options])` in [FirebaseVision]:
 ///
-/// ```dart
-/// final FirebaseVisionImage image =
-///     FirebaseVisionImage.fromFilePath('path/to/file');
-///
-/// final BarcodeDetector barcodeDetector =
-///     FirebaseVision.instance.barcodeDetector();
-///
-/// final List<Barcode> barcodes = await barcodeDetector.detectInImage(image);
-/// ```
+
 class BarcodeDetector {
   BarcodeDetector._(this.options, this._handle) : assert(options != null);
 
@@ -191,7 +183,7 @@ class BarcodeDetector {
   bool _hasBeenOpened = false;
   bool _isClosed = false;
 
-  /// Starts barcode detection.
+  /// Sets up and starts barcode detection.
   Future<void> startDetection() async {
     assert(!_isClosed);
 
