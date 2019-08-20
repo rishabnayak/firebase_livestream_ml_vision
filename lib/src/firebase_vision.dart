@@ -122,7 +122,7 @@ class FirebaseCameraPreview extends StatelessWidget {
   }
 }
 
-/// The state of a [CameraController].
+/// The state of [FirebaseVision].
 class FirebaseCameraValue {
   const FirebaseCameraValue({
     this.isInitialized,
@@ -176,7 +176,11 @@ class FirebaseCameraValue {
 
 /// The Firebase machine learning vision API.
 ///
-
+/// You must first initialize by calling [FirebaseVision.initialize] and then add detectors:
+///
+/// ```dart
+/// FirebaseVision.addtextRecognizer();
+/// ```
 class FirebaseVision extends ValueNotifier<FirebaseCameraValue> {
   FirebaseVision(
     this.description,
@@ -202,7 +206,7 @@ class FirebaseVision extends ValueNotifier<FirebaseCameraValue> {
 
   /// Initializes the camera on the device.
   ///
-  /// Throws a [CameraException] if the initialization fails.
+  /// Throws a [FirebaseCameraException] if the initialization fails.
   Future<void> initialize() async {
     if (_isDisposed) {
       return Future<void>.value();

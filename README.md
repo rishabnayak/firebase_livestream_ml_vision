@@ -8,9 +8,10 @@ For Flutter plugins for other Firebase products, see [FlutterFire.md](https://gi
 
 ## Usage
 
-To use this plugin, add `firebase_mlvision` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/). You must also configure Firebase for each platform project: Android and iOS (see the example folder or https://codelabs.developers.google.com/codelabs/flutter-firebase/#4 for step by step details).
+To use this plugin, add `firebase_livestream_ml_vision` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/). You must also configure Firebase for each platform project: Android and iOS (see the example folder or https://codelabs.developers.google.com/codelabs/flutter-firebase/#4 for step by step details).
 
 ### AutoML Vision Edge
+
 If you plan to use AutoML Vision Edge to detect labels using a custom model, either download or host the trained model by following [these instructions](https://firebase.google.com/docs/ml-kit/train-image-labeler).
 
 If you downloaded the file, follow the instructions below to enable the plugin.
@@ -69,6 +70,7 @@ Optional but recommended: If you use the on-device API, configure your app to au
 ```
 
 ### iOS
+
 Versions `0.7.0+` use the latest ML Kit for Firebase version which requires a minimum deployment
 target of 9.0. You can add the line `platform :ios, '9.0'` in your iOS project `Podfile`.
 
@@ -81,11 +83,12 @@ pod 'Firebase/MLVisionFaceModel'
 pod 'Firebase/MLVisionLabelModel'
 pod 'Firebase/MLVisionTextModel'
 ```
+
 Add one row in `ios/Runner/Info.plist`:
 
 The key `Privacy - Camera Usage Description` and a usage description.
 
-In text format: 
+In text format:
 
 ```
 <key>NSCameraUsageDescription</key>
@@ -95,14 +98,12 @@ In text format:
 
 ## Using an ML Vision Detector
 
-### 1. Create a Camera View.
-#### Example.
+### 1. Create a Camera View
 
 ```dart
 
 import 'package:firebase_livestream_ml_vision/firebase_livestream_ml_vision.dart';
 import 'package:flutter/material.dart';
-import 'detector_painters.dart';
 
 void main() => runApp(MaterialApp(home: _MyHomePage()));
 
@@ -161,47 +162,72 @@ Widget _buildImage() {
   }
 
 ```
+
 See the example app to learn more on incorporating detectors in the camera app, check it out [here](https://github.com/rishab2113/firebase_livestream_ml_vision/blob/master/example/lib/main.dart).
 
-### 2. Using detectors in your app.
+### 2. Using detectors
 
-### Special Instructions for using VisionEdgeImageLabeler.
+### Special Instructions for using VisionEdgeImageLabeler
 
 Get an object of `ModelManager`, and setup the local or remote model(optional, results in faster first-use)
+
 ```dart
 FirebaseVision.modelManager().setupModel('<foldername(modelname)>', modelLocation);
 ```
 
-#### Initialize the camera and provide a *_vision* object with a camera setting and resolution.
-```dart
-List<FirebaseCameraDescription> cameras = await camerasAvailable();
-    _vision = FirebaseVision(cameras[0], ResolutionSetting.high);
-    _vision.initialize().then((_) {
-      if (!mounted) {
-        return;
-      }
-      setState(() {});
-    });
-    
-```
-#### Calling a Labeler/Detector:
-a. Labeler
+#### Calling a Labeler/Detector
+
+a. Image Labeler
 
 ```dart
 _vision.addImageLabeler().then((onValue){
-        onValue.listen((onData) => //do something with data (eg: print(onData)
+        onValue.listen((onData) => // do something with data
         );
       });
 ```
-b. Detector
+
+b. Cloud Image Labeler
+
+```dart
+_vision.addCloudImageLabeler().then((onValue){
+        onValue.listen((onData) => // do something with data
+        );
+      });
+```
+
+c. Barcode Detector
 
 ```dart
 _vision.addBarcodeDetector().then((onValue){
-          onValue.listen((onData){
-            setState(() {
-              _scanResults = onData;
-            });
-          });
+          onValue.listen((onData) => // do something with data
+          );
+        });
+```
+
+d. Face Detector
+
+```dart
+_vision.addFaceDetector().then((onValue){
+          onValue.listen((onData) => // do something with data
+          );
+        });
+```
+
+e. Text Recognizer
+
+```dart
+_vision.addTextRecognizer().then((onValue){
+          onValue.listen((onData) => // do something with data
+          );
+        });
+```
+
+f. Vision Edge Image Labeler
+
+```dart
+_vision.addVisionEdgeImageLabeler('<foldername(modelname)>', modelLocation).then((onValue){
+          onValue.listen((onData) => // do something with data
+          );
         });
 ```
 
@@ -213,7 +239,7 @@ final ImageLabeler labeler = FirebaseVision.instance.addImageLabler(
 );
 ```
 
-### 3. Extract data.
+### 3. Extract data
 
 a. Extract barcodes.
 

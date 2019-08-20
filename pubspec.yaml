@@ -1,6 +1,6 @@
 name: firebase_livestream_ml_vision
 description: Flutter plugin for Firebase MLVision with Live Camera
-version: 0.0.1
+version: 1.0.0
 authors:
   - Rishab Nayak <rishab@bu.edu>
   - Aditya Narayanan <aditya.narayanan26@gmail.com>
