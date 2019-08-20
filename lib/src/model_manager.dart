@@ -9,7 +9,7 @@ part of firebase_livestream_ml_vision;
 /// ```dart
 ///
 /// final ModelManager modelManager =
-///     FirebaseLanguage.instance.modelManager();
+///     FirebaseLanguage.modelManager();
 ///
 /// final List<String> = await modelManager.downloadModel('modelname');
 /// ```

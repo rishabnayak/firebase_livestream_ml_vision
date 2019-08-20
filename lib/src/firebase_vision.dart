@@ -176,12 +176,7 @@ class FirebaseCameraValue {
 
 /// The Firebase machine learning vision API.
 ///
-/// You can get an instance by calling [FirebaseVision.instance] and then get
-/// a detector from the instance:
-///
-/// ```dart
-/// TextRecognizer textRecognizer = FirebaseVision.instance.textRecognizer();
-/// ```
+
 class FirebaseVision extends ValueNotifier<FirebaseCameraValue> {
   FirebaseVision(
     this.description,
@@ -204,15 +199,6 @@ class FirebaseVision extends ValueNotifier<FirebaseCameraValue> {
   VisionEdgeImageLabeler visionEdgeImageLabeler;
 
   static const MethodChannel channel = MethodChannel('plugins.flutter.io/firebase_livestream_ml_vision');
-
-  /// Singleton of [FirebaseVision].
-  ///
-  /// Use this get an instance of a detector:
-  ///
-  /// ```dart
-  /// TextRecognizer textRecognizer = FirebaseVision.instance.textRecognizer();
-  /// ```
-  // static final FirebaseVision instance = FirebaseVision._();
 
   /// Initializes the camera on the device.
   ///
@@ -287,7 +273,7 @@ class FirebaseVision extends ValueNotifier<FirebaseCameraValue> {
     }
   }
 
-  /// Creates an instance of [BarcodeDetector].
+  /// Creates a [BarcodeDetector].
   Future<Stream<List<Barcode>>> addBarcodeDetector([BarcodeDetectorOptions options]) async {
     barcodeDetector = BarcodeDetector._(options ?? const BarcodeDetectorOptions(),
     nextHandle++,
@@ -307,7 +293,7 @@ class FirebaseVision extends ValueNotifier<FirebaseCameraValue> {
     await barcodeDetector.close();
   }
 
-  /// Creates an instance of [VisionEdgeImageLabeler].
+  /// Creates a [VisionEdgeImageLabeler].
   Future<Stream<List<VisionEdgeImageLabel>>> addVisionEdgeImageLabeler(
       String dataset, String modelLocation,
       [VisionEdgeImageLabelerOptions options]) async {
@@ -331,7 +317,7 @@ class FirebaseVision extends ValueNotifier<FirebaseCameraValue> {
     await visionEdgeImageLabeler.close();
   }
 
-  /// Creates an instance of [FaceDetector].
+  /// Creates a [FaceDetector].
   Future<Stream<List<Face>>> addFaceDetector([FaceDetectorOptions options]) async {
     faceDetector = FaceDetector._(options ?? const FaceDetectorOptions(),
     nextHandle++,
@@ -351,12 +337,12 @@ class FirebaseVision extends ValueNotifier<FirebaseCameraValue> {
     await faceDetector.close();
   }
 
-  /// Creates an instance of [ModelManager].
+  /// Creates a [ModelManager].
   ModelManager modelManager() {
     return ModelManager._();
   }
 
-  /// Creates an on device instance of [ImageLabeler].
+  /// Creates an on device [ImageLabeler].
   Future<Stream<List<ImageLabel>>> addImageLabeler([ImageLabelerOptions options]) async {
     localImageLabeler = ImageLabeler._(
       options: options ?? const ImageLabelerOptions(),
@@ -378,7 +364,7 @@ class FirebaseVision extends ValueNotifier<FirebaseCameraValue> {
     await localImageLabeler.close();
   }
 
-  /// Creates an instance of [TextRecognizer].
+  /// Creates a [TextRecognizer].
   Future<Stream<VisionText>> addTextRecognizer([TextRecognizer options]) async {
     textRecognizer = TextRecognizer._(
       modelType: ModelType.onDevice,

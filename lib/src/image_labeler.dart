@@ -13,18 +13,10 @@ part of firebase_livestream_ml_vision;
 /// generation and content moderation.
 ///
 /// A image labeler is created via
-/// `imageLabeler([ImageLabelerOptions options])` or
-/// `cloudImageLabeler([CloudImageLabelerOptions options])` in [FirebaseVision]:
+/// `addImageLabeler([ImageLabelerOptions options])` or
+/// `addCloudImageLabeler([CloudImageLabelerOptions options])` in [FirebaseVision]:
 ///
-/// ```dart
-/// final FirebaseVisionImage image =
-///     FirebaseVisionImage.fromFilePath('path/to/file');
-///
-/// final ImageLabeler imageLabeler =
-///     FirebaseVision.instance.imageLabeler(options);
-///
-/// final List<ImageLabel> labels = await imageLabeler.processImage(image);
-/// ```
+
 class ImageLabeler {
   ImageLabeler._({
     @required dynamic options,
@@ -44,7 +36,7 @@ class ImageLabeler {
   bool _hasBeenOpened = false;
   bool _isClosed = false;
 
-  /// Finds entities in the input image.
+  /// Sets up and starts Image Labeling.
   Future<void> startDetection() async{
     assert(!_isClosed);
 

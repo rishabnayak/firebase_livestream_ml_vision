@@ -6,18 +6,7 @@ part of firebase_livestream_ml_vision;
 
 /// Detector for performing optical character recognition(OCR) on an input image.
 ///
-/// A text recognizer is created via `textRecognizer()` in [FirebaseVision]:
-///
-/// ```dart
-/// final FirebaseVisionImage image =
-///     FirebaseVisionImage.fromFilePath('path/to/file');
-///
-/// final TextRecognizer textRecognizer =
-///     FirebaseVision.instance.textRecognizer();
-///
-/// final List<VisionText> recognizedText =
-///     await textRecognizer.processImage(image);
-/// ```
+
 class TextRecognizer {
   TextRecognizer._({
     @required this.modelType,
@@ -31,7 +20,7 @@ class TextRecognizer {
   bool _hasBeenOpened = false;
   bool _isClosed = false;
 
-  /// Detects [VisionText] from a [FirebaseVisionImage].
+  /// Sets up and starts to detect [VisionText] from a stream.
   Future<void> startDetection() async{
     assert(!_isClosed);
 
