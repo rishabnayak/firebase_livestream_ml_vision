@@ -297,7 +297,6 @@ public class FirebaseLivestreamMlVisionPlugin implements MethodCallHandler {
     private CaptureRequest.Builder captureRequestBuilder;
     private HandlerThread mBackgroundThread;
     private Handler mBackgroundHandler;
-    private Surface imageReaderSurface;
     private WindowManager windowManager;
     private Detector currentDetector;
     private Activity activity;
@@ -507,15 +506,12 @@ public class FirebaseLivestreamMlVisionPlugin implements MethodCallHandler {
 
       try {
         int angle;
-        int displayAngle; // TODO? setDisplayOrientation?
         CameraCharacteristics cameraCharacteristics =
                 cameraManager.getCameraCharacteristics(cameraName);
         Integer orientation = cameraCharacteristics.get(CameraCharacteristics.SENSOR_ORIENTATION);
         // back-facing
         angle = (orientation - degrees + 360) % 360;
-        displayAngle = angle;
         int translatedAngle = angle / 90;
-        Log.d("ML", "Translated angle: " + translatedAngle);
         return translatedAngle; // this corresponds to the rotation constants
       } catch (CameraAccessException e) {
         return 0;
@@ -541,9 +537,7 @@ public class FirebaseLivestreamMlVisionPlugin implements MethodCallHandler {
               FirebaseVisionImage.fromMediaImage(image, metadata.getRotation());
 
       currentDetector.handleDetection(
-              firebaseVisionImage, eventSink);
-
-      shouldThrottle.set(false);
+              firebaseVisionImage, eventSink, shouldThrottle);
     }
 
     private final ImageReader.OnImageAvailableListener imageAvailable =
@@ -552,8 +546,8 @@ public class FirebaseLivestreamMlVisionPlugin implements MethodCallHandler {
               public void onImageAvailable(ImageReader reader) {
                 Image image = reader.acquireLatestImage();
                 if (image != null) {
-                  processImage(image);
-                  image.close();
+                    processImage(image);
+                    image.close();
                 }
               }
      };
@@ -567,7 +561,6 @@ public class FirebaseLivestreamMlVisionPlugin implements MethodCallHandler {
           imageReader =
                   ImageReader.newInstance(
                           previewSize.getWidth(), previewSize.getHeight(), ImageFormat.YUV_420_888, 2);
-          imageReaderSurface = imageReader.getSurface();
           imageReader.setOnImageAvailableListener(imageAvailable, mBackgroundHandler);
           cameraManager.openCamera(
                   cameraName,
@@ -658,8 +651,8 @@ public class FirebaseLivestreamMlVisionPlugin implements MethodCallHandler {
       surfaces.add(previewSurface);
       captureRequestBuilder.addTarget(previewSurface);
 
-      surfaces.add(imageReaderSurface);
-      captureRequestBuilder.addTarget(imageReaderSurface);
+      surfaces.add(imageReader.getSurface());
+      captureRequestBuilder.addTarget(imageReader.getSurface());
 
       cameraDevice.createCaptureSession(
               surfaces,

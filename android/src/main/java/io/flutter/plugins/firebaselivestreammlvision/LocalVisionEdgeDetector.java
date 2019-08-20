@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 class LocalVisionEdgeDetector implements Detector {
   private FirebaseVisionImageLabeler labeler;
@@ -42,7 +43,7 @@ class LocalVisionEdgeDetector implements Detector {
   }
 
   @Override
-  public void handleDetection(final FirebaseVisionImage image, final EventChannel.EventSink result) {
+  public void handleDetection(final FirebaseVisionImage image, final EventChannel.EventSink result, final AtomicBoolean throttle) {
     labeler
         .processImage(image)
         .addOnSuccessListener(
@@ -61,6 +62,7 @@ class LocalVisionEdgeDetector implements Detector {
                 Map<String, Object> res = new HashMap<>();
                 res.put("eventType", "detection");
                 res.put("data", labels);
+                throttle.set(false);
                 result.success(res);
               }
             })
@@ -68,6 +70,7 @@ class LocalVisionEdgeDetector implements Detector {
             new OnFailureListener() {
               @Override
               public void onFailure(@NonNull Exception e) {
+                throttle.set(false);
                 result.error("imageLabelerError", e.getLocalizedMessage(), null);
               }
             });

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class TextRecognizer implements Detector {
   private final FirebaseVisionTextRecognizer recognizer;
@@ -35,7 +36,7 @@ public class TextRecognizer implements Detector {
   }
 
   @Override
-  public void handleDetection(final FirebaseVisionImage image, final EventChannel.EventSink result) {
+  public void handleDetection(final FirebaseVisionImage image, final EventChannel.EventSink result, final AtomicBoolean throttle) {
     recognizer
         .processImage(image)
         .addOnSuccessListener(
@@ -91,6 +92,7 @@ public class TextRecognizer implements Detector {
                 Map<String, Object> res = new HashMap<>();
                 res.put("eventType", "detection");
                 res.put("data", visionTextData);
+                throttle.set(false);
                 result.success(res);
               }
             })
@@ -98,6 +100,7 @@ public class TextRecognizer implements Detector {
             new OnFailureListener() {
               @Override
               public void onFailure(@NonNull Exception exception) {
+                throttle.set(false);
                 result.error("textRecognizerError", exception.getLocalizedMessage(), null);
               }
             });
