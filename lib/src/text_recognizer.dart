@@ -21,7 +21,7 @@ class TextRecognizer {
   bool _isClosed = false;
 
   /// Sets up and starts to detect [VisionText] from a stream.
-  Future<void> startDetection() async{
+  Future<void> startDetection() async {
     assert(!_isClosed);
 
     _hasBeenOpened = true;

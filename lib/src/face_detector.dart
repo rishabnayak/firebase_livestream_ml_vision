@@ -74,8 +74,8 @@ class FaceDetector {
           'minFaceSize': options.minFaceSize,
           'mode': _enumToString(options.mode),
         },
-    },
-);
+      },
+    );
   }
 
   /// Release resources used by this detector.

@@ -7,7 +7,6 @@ part of firebase_livestream_ml_vision;
 /// `addVisionEdgeImageLabeler(String dataset, [VisionEdgeImageLabelerOptions options])` in [FirebaseVision]:
 ///
 
-
 class VisionEdgeImageLabeler {
   VisionEdgeImageLabeler._({
     @required dynamic options,
@@ -34,14 +33,14 @@ class VisionEdgeImageLabeler {
   bool _isClosed = false;
 
   /// Finds entities in the input image.
- Future<void> startDetection() async {
+  Future<void> startDetection() async {
     assert(!_isClosed);
 
     _hasBeenOpened = true;
     // https://github.com/flutter/flutter/issues/26431
     // ignore: strong_mode_implicit_dynamic_method
     if (_modelLocation == ModelLocation.Local) {
-    await FirebaseVision.channel.invokeMethod<dynamic>(
+      await FirebaseVision.channel.invokeMethod<dynamic>(
         'VisionEdgeImageLabeler#startLocalDetection',
         <String, dynamic>{
           'handle': _handle,
@@ -50,9 +49,9 @@ class VisionEdgeImageLabeler {
             'confidenceThreshold': _options.confidenceThreshold,
           },
         },
-    );
+      );
     } else {
-   await FirebaseVision.channel.invokeListMethod<dynamic>(
+      await FirebaseVision.channel.invokeListMethod<dynamic>(
         'VisionEdgeImageLabeler#startRemoteDetection',
         <String, dynamic>{
           'handle': _handle,
@@ -61,7 +60,7 @@ class VisionEdgeImageLabeler {
             'confidenceThreshold': _options.confidenceThreshold,
           },
         },
-);
+      );
     }
   }
 

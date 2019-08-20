@@ -37,7 +37,7 @@ class ImageLabeler {
   bool _isClosed = false;
 
   /// Sets up and starts Image Labeling.
-  Future<void> startDetection() async{
+  Future<void> startDetection() async {
     assert(!_isClosed);
 
     _hasBeenOpened = true;

@@ -18,7 +18,8 @@ enum CameraDirection { front, back, external }
 /// Indicates selected camera resolution
 enum ResolutionSetting { low, medium, high }
 
-const MethodChannel channel = MethodChannel('plugins.flutter.io/firebase_livestream_ml_vision');
+const MethodChannel channel =
+    MethodChannel('plugins.flutter.io/firebase_livestream_ml_vision');
 
 /// Returns the resolution preset as a String.
 String serializeResolutionPreset(ResolutionSetting resolutionSetting) {
@@ -65,7 +66,8 @@ Future<List<FirebaseCameraDescription>> camerasAvailable() async {
 }
 
 class FirebaseCameraDescription {
-  FirebaseCameraDescription({this.name, this.lensDirection, this.sensorOrientation});
+  FirebaseCameraDescription(
+      {this.name, this.lensDirection, this.sensorOrientation});
 
   final String name;
   final CameraDirection lensDirection;
@@ -124,14 +126,10 @@ class FirebaseCameraPreview extends StatelessWidget {
 
 /// The state of [FirebaseVision].
 class FirebaseCameraValue {
-  const FirebaseCameraValue({
-    this.isInitialized,
-    this.errorDescription,
-    this.previewSize
-  });
+  const FirebaseCameraValue(
+      {this.isInitialized, this.errorDescription, this.previewSize});
 
-  const FirebaseCameraValue.uninitialized()
-      : this(isInitialized: false);
+  const FirebaseCameraValue.uninitialized() : this(isInitialized: false);
 
   /// True after [FirebaseVision.initialize] has completed successfully.
   final bool isInitialized;
@@ -182,10 +180,8 @@ class FirebaseCameraValue {
 /// FirebaseVision.addtextRecognizer();
 /// ```
 class FirebaseVision extends ValueNotifier<FirebaseCameraValue> {
-  FirebaseVision(
-    this.description,
-    this.resolutionPreset
-  ) : super(const FirebaseCameraValue.uninitialized());
+  FirebaseVision(this.description, this.resolutionPreset)
+      : super(const FirebaseCameraValue.uninitialized());
 
   final FirebaseCameraDescription description;
   final ResolutionSetting resolutionPreset;
@@ -202,7 +198,8 @@ class FirebaseVision extends ValueNotifier<FirebaseCameraValue> {
   TextRecognizer textRecognizer;
   VisionEdgeImageLabeler visionEdgeImageLabeler;
 
-  static const MethodChannel channel = MethodChannel('plugins.flutter.io/firebase_livestream_ml_vision');
+  static const MethodChannel channel =
+      MethodChannel('plugins.flutter.io/firebase_livestream_ml_vision');
 
   /// Initializes the camera on the device.
   ///
@@ -232,10 +229,10 @@ class FirebaseVision extends ValueNotifier<FirebaseCameraValue> {
     } on PlatformException catch (e) {
       throw FirebaseCameraException(e.code, e.message);
     }
-    _eventSubscription =
-        EventChannel('plugins.flutter.io/firebase_livestream_ml_vision$_textureId')
-            .receiveBroadcastStream()
-            .listen(_listener);
+    _eventSubscription = EventChannel(
+            'plugins.flutter.io/firebase_livestream_ml_vision$_textureId')
+        .receiveBroadcastStream()
+        .listen(_listener);
     _creatingCompleter.complete();
     return _creatingCompleter.future;
   }
@@ -278,12 +275,20 @@ class FirebaseVision extends ValueNotifier<FirebaseCameraValue> {
   }
 
   /// Creates a [BarcodeDetector].
-  Future<Stream<List<Barcode>>> addBarcodeDetector([BarcodeDetectorOptions options]) async {
-    barcodeDetector = BarcodeDetector._(options ?? const BarcodeDetectorOptions(),
-    nextHandle++,
+  Future<Stream<List<Barcode>>> addBarcodeDetector(
+      [BarcodeDetectorOptions options]) async {
+    if (!value.isInitialized) {
+      throw new Exception("FirebaseVision isn't initialized yet.");
+    }
+    barcodeDetector = BarcodeDetector._(
+      options ?? const BarcodeDetectorOptions(),
+      nextHandle++,
     );
     await barcodeDetector.startDetection();
-    return EventChannel('plugins.flutter.io/firebase_livestream_ml_vision$_textureId').receiveBroadcastStream().map((convert) {
+    return EventChannel(
+            'plugins.flutter.io/firebase_livestream_ml_vision$_textureId')
+        .receiveBroadcastStream()
+        .map((convert) {
       dynamic data = convert['data'];
       final List<Barcode> barcodes = <Barcode>[];
       data.forEach((dynamic barcode) {
@@ -294,6 +299,9 @@ class FirebaseVision extends ValueNotifier<FirebaseCameraValue> {
   }
 
   Future<void> removeBarcodeDetector() async {
+    if (!value.isInitialized) {
+      throw new Exception("FirebaseVision isn't initialized yet.");
+    }
     await barcodeDetector.close();
   }
 
@@ -301,13 +309,19 @@ class FirebaseVision extends ValueNotifier<FirebaseCameraValue> {
   Future<Stream<List<VisionEdgeImageLabel>>> addVisionEdgeImageLabeler(
       String dataset, String modelLocation,
       [VisionEdgeImageLabelerOptions options]) async {
+    if (!value.isInitialized) {
+      throw new Exception("FirebaseVision isn't initialized yet.");
+    }
     visionEdgeImageLabeler = VisionEdgeImageLabeler._(
         options: options ?? const VisionEdgeImageLabelerOptions(),
         dataset: dataset,
         handle: nextHandle++,
         modelLocation: modelLocation);
     await visionEdgeImageLabeler.startDetection();
-    return EventChannel('plugins.flutter.io/firebase_livestream_ml_vision$_textureId').receiveBroadcastStream().map((convert) {
+    return EventChannel(
+            'plugins.flutter.io/firebase_livestream_ml_vision$_textureId')
+        .receiveBroadcastStream()
+        .map((convert) {
       dynamic data = convert['data'];
       final List<VisionEdgeImageLabel> labels = <VisionEdgeImageLabel>[];
       data.forEach((dynamic label) {
@@ -318,16 +332,27 @@ class FirebaseVision extends ValueNotifier<FirebaseCameraValue> {
   }
 
   Future<void> removeVisionEdgeImageLabeler() async {
+    if (!value.isInitialized) {
+      throw new Exception("FirebaseVision isn't initialized yet.");
+    }
     await visionEdgeImageLabeler.close();
   }
 
   /// Creates a [FaceDetector].
-  Future<Stream<List<Face>>> addFaceDetector([FaceDetectorOptions options]) async {
-    faceDetector = FaceDetector._(options ?? const FaceDetectorOptions(),
-    nextHandle++,
+  Future<Stream<List<Face>>> addFaceDetector(
+      [FaceDetectorOptions options]) async {
+    if (!value.isInitialized) {
+      throw new Exception("FirebaseVision isn't initialized yet.");
+    }
+    faceDetector = FaceDetector._(
+      options ?? const FaceDetectorOptions(),
+      nextHandle++,
     );
-        await faceDetector.startDetection();
-    return EventChannel('plugins.flutter.io/firebase_livestream_ml_vision$_textureId').receiveBroadcastStream().map((convert) {
+    await faceDetector.startDetection();
+    return EventChannel(
+            'plugins.flutter.io/firebase_livestream_ml_vision$_textureId')
+        .receiveBroadcastStream()
+        .map((convert) {
       dynamic data = convert['data'];
       final List<Face> faces = <Face>[];
       data.forEach((dynamic face) {
@@ -338,6 +363,9 @@ class FirebaseVision extends ValueNotifier<FirebaseCameraValue> {
   }
 
   Future<void> removeFaceDetector() async {
+    if (!value.isInitialized) {
+      throw new Exception("FirebaseVision isn't initialized yet.");
+    }
     await faceDetector.close();
   }
 
@@ -347,66 +375,94 @@ class FirebaseVision extends ValueNotifier<FirebaseCameraValue> {
   }
 
   /// Creates an on device [ImageLabeler].
-  Future<Stream<List<ImageLabel>>> addImageLabeler([ImageLabelerOptions options]) async {
+  Future<Stream<List<ImageLabel>>> addImageLabeler(
+      [ImageLabelerOptions options]) async {
+    if (!value.isInitialized) {
+      throw new Exception("FirebaseVision isn't initialized yet.");
+    }
     localImageLabeler = ImageLabeler._(
       options: options ?? const ImageLabelerOptions(),
       modelType: ModelType.onDevice,
       handle: nextHandle++,
     );
-      await localImageLabeler.startDetection();
-    return EventChannel('plugins.flutter.io/firebase_livestream_ml_vision$_textureId').receiveBroadcastStream().map((convert) {
+    await localImageLabeler.startDetection();
+    return EventChannel(
+            'plugins.flutter.io/firebase_livestream_ml_vision$_textureId')
+        .receiveBroadcastStream()
+        .map((convert) {
       dynamic data = convert['data'];
       final List<ImageLabel> labels = <ImageLabel>[];
       data.forEach((dynamic label) {
         labels.add(new ImageLabel._(label));
-      });  
+      });
       return labels;
     });
   }
 
   Future<void> removeImageLabeler() async {
+    if (!value.isInitialized) {
+      throw new Exception("FirebaseVision isn't initialized yet.");
+    }
     await localImageLabeler.close();
   }
 
   /// Creates a [TextRecognizer].
   Future<Stream<VisionText>> addTextRecognizer([TextRecognizer options]) async {
+    if (!value.isInitialized) {
+      throw new Exception("FirebaseVision isn't initialized yet.");
+    }
     textRecognizer = TextRecognizer._(
       modelType: ModelType.onDevice,
       handle: nextHandle++,
-  );
-  await textRecognizer.startDetection();
-  return EventChannel('plugins.flutter.io/firebase_livestream_ml_vision$_textureId').receiveBroadcastStream().map((convert) {
-      dynamic data = new Map<String,dynamic>.from(convert['data']);
+    );
+    await textRecognizer.startDetection();
+    return EventChannel(
+            'plugins.flutter.io/firebase_livestream_ml_vision$_textureId')
+        .receiveBroadcastStream()
+        .map((convert) {
+      dynamic data = new Map<String, dynamic>.from(convert['data']);
       return VisionText._(data);
     });
   }
 
   Future<void> removeTextRecognizer() async {
+    if (!value.isInitialized) {
+      throw new Exception("FirebaseVision isn't initialized yet.");
+    }
     await textRecognizer.close();
   }
 
   /// Creates a cloud instance of [ImageLabeler].
-  Future<Stream<List<ImageLabel>>> addCloudImageLabeler([CloudImageLabelerOptions options]) async {
+  Future<Stream<List<ImageLabel>>> addCloudImageLabeler(
+      [CloudImageLabelerOptions options]) async {
+    if (!value.isInitialized) {
+      throw new Exception("FirebaseVision isn't initialized yet.");
+    }
     cloudImageLabeler = ImageLabeler._(
       options: options ?? const CloudImageLabelerOptions(),
       modelType: ModelType.cloud,
       handle: nextHandle++,
     );
     await cloudImageLabeler.startDetection();
-    return EventChannel('plugins.flutter.io/firebase_livestream_ml_vision$_textureId').receiveBroadcastStream().map((convert) {
+    return EventChannel(
+            'plugins.flutter.io/firebase_livestream_ml_vision$_textureId')
+        .receiveBroadcastStream()
+        .map((convert) {
       dynamic data = convert['data'];
       final List<ImageLabel> labels = <ImageLabel>[];
       data.forEach((dynamic label) {
         labels.add(new ImageLabel._(label));
-      });  
+      });
       return labels;
     });
   }
 
   Future<void> removeCloudImageLabeler() async {
+    if (!value.isInitialized) {
+      throw new Exception("FirebaseVision isn't initialized yet.");
+    }
     await cloudImageLabeler.close();
   }
-
 }
 
 String _enumToString(dynamic enumValue) {
