@@ -189,7 +189,7 @@ SPEC CHECKSUMS:
   FirebaseMLVisionFaceModel: 897589c0a1d967739cdbb495cf4ca296f8750f75
   FirebaseMLVisionLabelModel: e270ea50a47b9bd5f332c3dffa22eb896ee422cf
   FirebaseMLVisionTextModel: f5ca6d55bee8f00e08afca69d211fdc4efee1fef
-  Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   GoogleAPIClientForREST: 44c7b678cbab11d26a47eab7309d6179b1a61f0c
   GoogleAppMeasurement: 51d8d9ea48f0ca44484d29cfbdef976fbd4fc336
   GoogleMobileVision: 31cfb4319fd0c03d80105680abd9eae9da5e3b47

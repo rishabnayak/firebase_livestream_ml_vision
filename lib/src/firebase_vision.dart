@@ -197,6 +197,7 @@ class FirebaseVision extends ValueNotifier<FirebaseCameraValue> {
   ImageLabeler localImageLabeler;
   TextRecognizer textRecognizer;
   VisionEdgeImageLabeler visionEdgeImageLabeler;
+  ShowTellLabeler showTellLabeler;
 
   static const MethodChannel channel =
       MethodChannel('plugins.flutter.io/firebase_livestream_ml_vision');
@@ -463,6 +464,31 @@ class FirebaseVision extends ValueNotifier<FirebaseCameraValue> {
     }
     await cloudImageLabeler.close();
   }
+
+  /// Creates a cloud instance of [ImageLabeler].
+  Future<Stream<String>> addShowTellLabeler() async {
+    if (!value.isInitialized) {
+      throw new Exception("FirebaseVision isn't initialized yet.");
+    }
+    showTellLabeler = ShowTellLabeler._(
+      handle: nextHandle++,
+    );
+    await showTellLabeler.startDetection();
+    return EventChannel(
+            'plugins.flutter.io/firebase_livestream_ml_vision$_textureId')
+        .receiveBroadcastStream()
+        .map((convert) {
+      return convert['data'];
+    });
+  }
+
+  Future<void> removeShowTellLabeler() async {
+    if (!value.isInitialized) {
+      throw new Exception("FirebaseVision isn't initialized yet.");
+    }
+    await showTellLabeler.close();
+  }
+
 }
 
 String _enumToString(dynamic enumValue) {

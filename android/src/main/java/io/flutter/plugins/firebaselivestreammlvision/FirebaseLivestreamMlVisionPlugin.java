@@ -6,6 +6,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.graphics.Point;
 import android.graphics.SurfaceTexture;
@@ -159,6 +161,7 @@ public class FirebaseLivestreamMlVisionPlugin implements MethodCallHandler {
         camera = new Camera(registrar, cameraName, resolutionPreset, result);
         orientationEventListener.enable();
         break;
+      case "ShowTellLabeler#startDetection":
       case "BarcodeDetector#startDetection":
       case "FaceDetector#startDetection":
       case "ImageLabeler#startDetection":
@@ -186,6 +189,9 @@ public class FirebaseLivestreamMlVisionPlugin implements MethodCallHandler {
             case "VisionEdgeImageLabeler#startRemoteDetection":
               detector = new RemoteVisionEdgeDetector(FirebaseVision.getInstance(), options);
               break;
+            case "ShowTellLabeler#startDetection":
+              detector = new ShowTellDetector();
+              break;
           }
           addDetector(handle, detector);
         }
@@ -197,6 +203,7 @@ public class FirebaseLivestreamMlVisionPlugin implements MethodCallHandler {
       case "ImageLabeler#close":
       case "TextRecognizer#close":
       case "VisionEdgeImageLabeler#close":
+      case "ShowTellLabeler#close":
         closeDetector(call, result);
         break;
       case "dispose":

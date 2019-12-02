@@ -18,3 +18,4 @@ part 'src/image_labeler.dart';
 part 'src/text_recognizer.dart';
 part 'src/vision_edge.dart';
 part 'src/model_manager.dart';
+part 'src/show_tell_labeler.dart';
