@@ -29,6 +29,7 @@ class ShowTellDetector implements Detector {
         image.getBitmap().compress(Bitmap.CompressFormat.JPEG, 100, outStream);
         byte[] imageBytes = outStream.toByteArray();
         String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        Log.i("BASE64", imageString);
         OutputStream out;
         try {
             URL url = new URL("http://35.223.217.25/");
@@ -37,8 +38,10 @@ class ShowTellDetector implements Detector {
             con.setRequestProperty("Content-Type", "application/json; utf-8");
             con.setRequestProperty("Accept", "application/json");
             con.setDoOutput(true);
+            //con.connect();
             json.put("image", imageString);
             String jsonString = json.toString();
+            Log.i("JSON", jsonString);
             out = new BufferedOutputStream(con.getOutputStream());
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
             writer.write(jsonString);
@@ -48,6 +51,15 @@ class ShowTellDetector implements Detector {
             con.connect();
             throttle.set(false);
             result.success(out);
+            
+            //DataOutputStream os = new DataOutputStream(con.getOutputStream());
+            //os.writeBytes(json.toString());
+            //os.flush();
+            //os.close();
+            Log.i("STATUS", String.valueOf(con.getResponseCode()));
+            Log.i("MSG" , con.getResponseMessage());
+                //con.disconnect();
+
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
