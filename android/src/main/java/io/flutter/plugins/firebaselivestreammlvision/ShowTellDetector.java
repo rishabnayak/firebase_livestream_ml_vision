@@ -49,6 +49,7 @@ class ShowTellDetector implements Detector {
             writer.close();
             out.close();
             con.connect();
+            con.getResponseMessage();
             throttle.set(false);
             result.success(out);
             
